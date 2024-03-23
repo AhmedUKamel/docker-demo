@@ -3,11 +3,11 @@
 while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in
-#        --commit-message)
-#          COMMIT_MESSAGE="$2"
-#          shift
-#          shift
-#          ;;
+        --commit-message)
+          COMMIT_MESSAGE="$2"
+          shift
+          shift
+          ;;
         --version)
           VERSION="$2"
           shift
@@ -24,10 +24,10 @@ print_status() {
     echo "$(date +"%Y-%m-%d %T"): $1"
 }
 
-#if [ -z "$COMMIT_MESSAGE" ]; then
-#    print_status "Commit message is required."
-#    exit 1
-#fi
+if [ -z "$COMMIT_MESSAGE" ]; then
+    print_status "Commit message is required."
+    exit 1
+fi
 
 if [ -z "$VERSION" ]; then
     print_status "version number is required."
@@ -68,16 +68,16 @@ docker tag "$DOCKER_IMAGE_NAME:$VERSION" "$DOCKER_IMAGE_NAME:latest" >> /tmp/doc
 print_status "Pushing docker image -> $DOCKER_IMAGE_NAME:latest ..."
 docker push "$DOCKER_IMAGE_NAME:latest" >> /tmp/docker_push_output.txt || { print_status "Docker push failed."; exit 1; }
 
-## Add changes
-#print_status "Adding changes ..."
-#git add . || { print_status "Git add failed."; exit 1; }
-#
-#print_status "Committing changes with message: $COMMIT_MESSAGE"
-#git commit -m "$COMMIT_MESSAGE" >> /tmp/git_commit_output.txt || { print_status "Git commit failed."; exit 1; }
-#
-## Push changes
-#print_status "Pushing changes..."
-#git push >> /tmp/git_push_output.txt 2>&1 || { print_status "Git push failed."; exit 1; }
+# Add changes
+print_status "Adding changes ..."
+git add . || { print_status "Git add failed."; exit 1; }
+
+print_status "Committing changes with message: $COMMIT_MESSAGE"
+git commit -m "$COMMIT_MESSAGE" >> /tmp/git_commit_output.txt || { print_status "Git commit failed."; exit 1; }
+
+# Push changes
+print_status "Pushing changes..."
+git push >> /tmp/git_push_output.txt 2>&1 || { print_status "Git push failed."; exit 1; }
 
 # SSH to remote server and run specific bash file
 print_status "SSHing to remote server and running specific bash file..."
