@@ -1,0 +1,35 @@
+services:
+  application:
+    image: ahmedukamel/demo:0.0.6
+    container_name: application_container
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/demo_db
+      SPRING_DATASOURCE_USERNAME: ahmed
+      SPRING_DATASOURCE_PASSWORD: ahmed
+#      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+#      JPA.HIBERNATE.DDL-AUTO: update
+      JPA_HIBERNATE_DATABASE-PLATFORM: org.hibernate.dialect.MySQLDialect
+#      - "spring.datasource.username=root"
+#      - "spring.datasource.password=root"
+#      - "spring.datasource.url=jdbc:mysql://localhost:3307/demo_db?allowPublicKeyRetrieval=true"
+#      - "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
+#      - "spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect"
+  #    ports:
+  #      - 8090:8080
+  #    depends_on:
+  #      - db
+
+  db:
+    image: mysql:latest
+    container_name: database_container
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=demo_db
+      - MYSQL_USER=ahmed
+      - MYSQL_PASSWORD=ahmed
+    ports:
+      - 3307:3306
+volumes:
+  mysql-data:
