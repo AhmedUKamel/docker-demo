@@ -38,7 +38,10 @@ fi
 PROJECT_DIRECTORY="/media/Linux_Partition/Projects/static-demo"
 SSH_HOST="191.101.2.187"
 SSH_USERNAME="root"
+SSH_COMMAND="bash /root/update.sh"
 DOCKER_IMAGE_NAME="ahmedukamel/demo"
+
+#source .env
 
 # Change directory to project directory
 print_status "Changing directory to project directory ..."
@@ -81,7 +84,7 @@ git push >> /tmp/git_push_output.txt 2>&1 || { print_status "Git push failed."; 
 
 # SSH to remote server and run specific bash file
 print_status "SSHing to remote server and running specific bash file..."
-ssh "$SSH_USERNAME@$SSH_HOST" "bash /root/update.sh" >> /tmp/ssh_bash_output.txt || { print_status "SSH connection to remote server failed."; exit 1; }
+ssh "$SSH_USERNAME@$SSH_HOST" "$SSH_COMMAND" >> /tmp/ssh_bash_output.txt || { print_status "SSH connection to remote server failed."; exit 1; }
 
 print_status "Process completed successfully."
 exit 0;
