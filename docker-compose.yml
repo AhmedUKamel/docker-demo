@@ -16,6 +16,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=SomeStrongPass#123
     networks:
       - test-application-network
+    restart: always
     container_name: application_container
   database:
     image: mysql:latest

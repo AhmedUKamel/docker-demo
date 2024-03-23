@@ -35,13 +35,13 @@ if [ -z "$VERSION" ]; then
 fi
 
 # Constants
-PROJECT_DIRECTORY="/media/Linux_Partition/Projects/static-demo"
-SSH_HOST="191.101.2.187"
-SSH_USERNAME="root"
-SSH_COMMAND="bash /root/update.sh"
-DOCKER_IMAGE_NAME="ahmedukamel/demo"
+#PROJECT_DIRECTORY="/media/Linux_Partition/Projects/static-demo"
+#SSH_HOST="191.101.2.187"
+#SSH_USERNAME="root"
+#SSH_COMMAND="bash /root/update.sh"
+#DOCKER_IMAGE_NAME="ahmedukamel/demo"
 
-#source .env
+source .env
 
 # Change directory to project directory
 print_status "Changing directory to project directory ..."
